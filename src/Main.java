@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -69,7 +70,11 @@ public class Main {
         return roman.toString();
     }
      public static void main(String[] args) {
-        System.out.println(Arrays.toString(calc("9 / 3")));
+         Scanner in = new Scanner(System.in);
+         System.out.print("Введите выражение: ");
+         String input = in.nextLine();
+        System.out.println(Arrays.toString(calc(input)));
+         in.close();
       }
     }
 
