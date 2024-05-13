@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -26,9 +28,11 @@ public class Main {
         values.put("VIII", 8);
         values.put("IX", 9);
         values.put("X", 10);
-//        if ((!values.containsKey(strEl[0]) || !values.containsKey(strEl[2])) || (values.get(strEl[0]) < 1 || values.get(strEl[0]) > 10) || (values.get(strEl[2]) < 1 || values.get(strEl[2]) > 10)) {
-//            throw new IllegalArgumentException("Неверный операнд");
-//        }
+
+        if ((!(values.containsKey(strEl[0])) || !(values.containsKey(strEl[2]))) && (parseInt(strEl[0]) < 1 || parseInt(strEl[0]) > 10 || parseInt(strEl[2]) < 1 || parseInt(strEl[2]) > 10)) {
+            throw new IllegalArgumentException("Неверный операнд");
+        }
+
         int result;
         if (values.containsKey(strEl[0]) && values.containsKey(strEl[2])) {
             int operand1 = values.get(strEl[0]);
@@ -40,10 +44,14 @@ public class Main {
                 case "/" -> operand1 / operand2;
                 default -> throw new IllegalArgumentException("Некорректный оператор");
             };
+            if (result < 0) {
+                throw new IllegalArgumentException("Недопустимый вывод");
+            }
             return new String[]{romanice(result)};
+
         } else {
-            int operand1 = Integer.parseInt(strEl[0]);
-            int operand2 = Integer.parseInt(strEl[2]);
+            int operand1 = parseInt(strEl[0]);
+            int operand2 = parseInt(strEl[2]);
             result = switch (strEl[1]) {
                 case "+" -> operand1 + operand2;
                 case "-" -> operand1 - operand2;
@@ -52,6 +60,9 @@ public class Main {
                 default -> throw new IllegalArgumentException("Некорректный оператор");
             };
             System.out.println(result);
+            if (result < 0) {
+                throw new IllegalArgumentException("Недопустимый вывод");
+            }
             return new String[]{Integer.toString(result)};
         }
 
@@ -63,7 +74,6 @@ public class Main {
         for (int i = 0; i < romanNumerals.length; i++) {
             while (num >= values[i]) {
                 roman.append(romanNumerals[i]);
-
                 num -= values[i];
             }
         }
